@@ -5,25 +5,28 @@ const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // ✅ Add loading state
+  const [loading, setLoading] = useState(false);
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-
-    if (!searchTerm) return;
-
-    setLoading(true); // ✅ Start loading
+  // ✅ Required function
+  const fetchUserData = async (username) => {
+    setLoading(true);
     setError('');
     setUser(null);
 
     try {
-      const response = await axios.get(`https://api.github.com/users/${searchTerm}`);
+      const response = await axios.get(`https://api.github.com/users/${username}`);
       setUser(response.data);
     } catch (err) {
       setError("Looks like we cant find the user");
     } finally {
-      setLoading(false); // ✅ Stop loading
+      setLoading(false);
     }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!searchTerm) return;
+    fetchUserData(searchTerm); // ✅ Use the fetchUserData function
   };
 
   return (
@@ -40,7 +43,7 @@ const Search = () => {
       </form>
 
       <div className="mt-4">
-        {loading && <p>Loading</p>} {/* ✅ This is what the checker is looking for */}
+        {loading && <p>Loading</p>}
         {error && <p>{error}</p>}
 
         {user && (

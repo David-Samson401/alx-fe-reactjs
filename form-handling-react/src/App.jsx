@@ -1,5 +1,5 @@
 import React from "react"; 
-import FormikForm from "./components/formikForm";
+import formikForm from "./components/formikForm";
 import RegistrationForm from "./components/RegistrationForm";
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <div className="p-6">
       <RegistrationForm />
       <hr className="my-8" />
-      <FormikForm />
+      <formikForm />
     </div>
   );
 }

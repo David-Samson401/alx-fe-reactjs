@@ -16,7 +16,6 @@ export default function TodoList() {
   };
 
   const toggleTodo = (todo) => {
-    // Toggle by striking through (not used in test, but required)
     setTodos(
       todos.map((t) =>
         t === todo ? (t.startsWith("✓ ") ? t.slice(2) : "✓ " + t) : t
@@ -40,12 +39,8 @@ export default function TodoList() {
 
       <ul>
         {todos.map((todo, index) => (
-          <li
-            key={index}
-            onClick={() => toggleTodo(todo)}
-            style={{ textDecoration: "none", cursor: "pointer" }}
-          >
-            {todo}
+          <li key={index} style={{ textDecoration: "none", cursor: "pointer" }}>
+            <span onClick={() => toggleTodo(todo)}>{todo}</span>
             <button
               style={{ marginLeft: "10px" }}
               onClick={() => deleteTodo(todo)}

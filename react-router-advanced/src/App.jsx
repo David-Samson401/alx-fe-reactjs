@@ -5,8 +5,6 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
 import Profile from "./components/Profile";
-import ProfileDetails from "./components/ProfileDetails";
-import ProfileSettings from "./components/ProfileSettings";
 import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
 import Login from "./components/Login";
@@ -29,19 +27,15 @@ function App() {
           element={<Login onLogin={() => setIsAuthenticated(true)} />}
         />
 
-        {/* Protected Routes */}
+        {/* Protected Route with Nested Routing handled inside Profile */}
         <Route
-          path="/profile"
+          path="/profile/*"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <Profile />
             </ProtectedRoute>
           }
-        >
-          {/* Nested Routes */}
-          <Route path="details" element={<ProfileDetails />} />
-          <Route path="settings" element={<ProfileSettings />} />
-        </Route>
+        />
       </Routes>
     </Router>
   );

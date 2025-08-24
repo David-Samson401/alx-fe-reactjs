@@ -1,5 +1,6 @@
 
-import React from "react";
+
+
 export default function ProfileSettings() {
-  return <p>Update your profile settings here.</p>;
+  return <div><h3>Profile Settings Section</h3></div>;
 }

@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 
-export default function TodoList() {
+function TodoList() {
   const [todos, setTodos] = useState([
     "Learn React",
     "Build a project",
     "Write tests",
   ]);
-  const [newTodo, setNewTodo] = useState("");
+  const [newTodo, setNewTodo] = useState([]);
 
-  const addTodo = () => {
-    if (newTodo.trim() !== "") {
-      setTodos([...todos, newTodo]);
-      setNewTodo("");
-    }
+  const handleAdd = () => {
+    if (newTodo.trim() === "") return;
+    setTodos([...todos, newTodo]);
+    setNewTodo("");
   };
 
-  const toggleTodo = (todo) => {
+  const handleToggle = (todo) => {
     setTodos(
       todos.map((t) =>
         t === todo ? (t.startsWith("✓ ") ? t.slice(2) : "✓ " + t) : t
@@ -23,8 +22,8 @@ export default function TodoList() {
     );
   };
 
-  const deleteTodo = (todoToDelete) => {
-    setTodos(todos.filter((todo) => todo !== todoToDelete));
+  const handleDelete = (todo) => {
+    setTodos(todos.filter((t) => t !== todo));
   };
 
   return (
@@ -35,15 +34,18 @@ export default function TodoList() {
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
       />
-      <button onClick={addTodo}>Add</button>
-
+      <button onClick={handleAdd}>Add</button>
       <ul>
-        {todos.map((todo, index) => (
-          <li key={index} style={{ textDecoration: "none", cursor: "pointer" }}>
-            <span onClick={() => toggleTodo(todo)}>{todo}</span>
+        {todos.map((todo, idx) => (
+          <li
+            key={idx}
+            onClick={() => handleToggle(todo)}
+            style={{ textDecoration: "none", cursor: "pointer" }}
+          >
+            {todo}
             <button
               style={{ marginLeft: "10px" }}
-              onClick={() => deleteTodo(todo)}
+              onClick={() => handleDelete(todo)}
             >
               Delete
             </button>
@@ -53,3 +55,5 @@ export default function TodoList() {
     </div>
   );
 }
+
+export default TodoList;

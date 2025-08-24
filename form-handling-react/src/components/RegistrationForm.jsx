@@ -11,7 +11,7 @@ const RegistrationForm = () => {
     e.preventDefault();
     let newErrors = {};
 
-    
+    //  explicit validation checks
     if (!username) {
       newErrors.username = "Username is required";
     }

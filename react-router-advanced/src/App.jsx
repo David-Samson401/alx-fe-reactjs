@@ -2,14 +2,14 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Profile from "./pages/Profile";
-import ProfileDetails from "./pages/ProfileDetails";
-import ProfileSettings from "./pages/ProfileSettings";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import Login from "./pages/Login";
+import Home from "./components/Home";
+import About from "./components/About";
+import Profile from "./components/Profile";
+import ProfileDetails from "./components/ProfileDetails";
+import ProfileSettings from "./components/ProfileSettings";
+import Blog from "./components/Blog";
+import BlogPost from "./components/BlogPost";
+import Login from "./components/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {

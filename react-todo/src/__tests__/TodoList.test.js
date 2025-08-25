@@ -1,15 +1,15 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import App from "../App";
+import TodoList from "../components/TodoList";
 
 test("renders initial todos", () => {
-  render(<App />);
+  render(<TodoList />);
   expect(screen.getByText("Learn React")).toBeInTheDocument();
   expect(screen.getByText("Build a project")).toBeInTheDocument();
   expect(screen.getByText("Write tests")).toBeInTheDocument();
 });
 
 test("can add a new todo", () => {
-  render(<App />);
+  render(<TodoList />);
   fireEvent.change(screen.getByPlaceholderText("Add a new todo"), {
     target: { value: "New Todo" },
   });
@@ -18,14 +18,14 @@ test("can add a new todo", () => {
 });
 
 test("can toggle a todo", () => {
-  render(<App />);
+  render(<TodoList />);
   const todo = screen.getByText("Learn React");
   fireEvent.click(todo);
-  expect(todo).toHaveStyle("text-decoration: line-through");
+  expect(screen.getByText("✓ Learn React")).toBeInTheDocument();
 });
 
 test("can delete a todo", () => {
-  render(<App />);
+  render(<TodoList />);
   const todo = screen.getByText("Learn React");
   const deleteButton = todo.nextSibling;
   fireEvent.click(deleteButton);

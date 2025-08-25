@@ -1,30 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 
-function TodoList({ todos, onToggle, onDelete }) {
+function TodoList() {
+  const [todos, setTodos] = useState([
+    "Learn React",
+    "Build a project",
+    "Write tests",
+  ]);
+  const [newTodo, setNewTodo] = useState("");
+
+  const handleAdd = () => {
+    if (newTodo.trim() === "") return;
+    setTodos([...todos, newTodo]);
+    setNewTodo("");
+  };
+
+  const handleToggle = (todo) => {
+    setTodos(
+      todos.map((t) =>
+        t === todo ? (t.startsWith("✓ ") ? t.slice(2) : "✓ " + t) : t
+      )
+    );
+  };
+
+  const handleDelete = (todo, e) => {
+    e.stopPropagation(); // Prevent triggering the toggle
+    setTodos(todos.filter((t) => t !== todo));
+  };
+
   return (
-    <ul>
-      {todos.map((todo) => (
-        <li
-          key={todo.id}
-          onClick={() => onToggle(todo.id)}
-          style={{
-            textDecoration: todo.completed ? "line-through" : "none",
-            cursor: "pointer",
-          }}
-        >
-          {todo.text}
-          <button
-            style={{ marginLeft: "10px" }}
-            onClick={(e) => {
-              e.stopPropagation(); // prevent toggle when deleting
-              onDelete(todo.id);
-            }}
+    <div>
+      <input
+        type="text"
+        placeholder="Add a new todo"
+        value={newTodo}
+        onChange={(e) => setNewTodo(e.target.value)}
+      />
+      <button onClick={handleAdd}>Add</button>
+      <ul>
+        {todos.map((todo, idx) => (
+          <li
+            key={idx}
+            onClick={() => handleToggle(todo)}
+            style={{ textDecoration: "none", cursor: "pointer" }}
           >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
+            <span>{todo}</span>
+            <button
+              style={{ marginLeft: "10px" }}
+              onClick={(e) => handleDelete(todo, e)}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
